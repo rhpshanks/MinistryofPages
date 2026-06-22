@@ -17,7 +17,6 @@ import ToastContainer from './components/ToastContainer';
 import Breadcrumbs from './components/Breadcrumbs';
 import About from './components/About';
 import Contact from './components/Contact';
-import History from './components/History';
 import AuthModal from './components/AuthModal';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
@@ -114,8 +113,6 @@ export default function App() {
               {activeTab === 'about' && <About />}
               
               {activeTab === 'contact' && <Contact />}
-
-              {activeTab === 'history' && <History />}
             </main>
             
             <Footer />
