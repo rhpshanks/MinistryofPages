@@ -18,6 +18,7 @@ import Breadcrumbs from './components/Breadcrumbs';
 import About from './components/About';
 import Contact from './components/Contact';
 import AuthModal from './components/AuthModal';
+import AnnouncementBanner from './components/AnnouncementBanner';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { ToastProvider } from './context/ToastContext';
@@ -75,6 +76,7 @@ export default function App() {
               onTabChange={handleTabChange}
               onOpenAuth={handleOpenAuth}
             />
+            <AnnouncementBanner />
             <CartDrawer />
             <ToastContainer />
             <AuthModal 
