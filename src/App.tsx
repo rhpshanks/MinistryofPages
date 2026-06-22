@@ -23,6 +23,7 @@ import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { ToastProvider } from './context/ToastContext';
 import { MOCK_PRODUCTS } from './data';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -119,6 +120,7 @@ export default function App() {
             
             <Footer />
           </div>
+          <Analytics />
         </CartProvider>
       </WishlistProvider>
     </ToastProvider>
