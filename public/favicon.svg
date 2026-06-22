@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- Background: Rounded square with rich dark slate color -->
+  <rect width="512" height="512" rx="128" fill="#0f172a" />
+  
+  <!-- Shadow/glow effect behind paper stack -->
+  <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+    <feGaussianBlur stdDeviation="16" result="blur" />
+    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+  </filter>
+
+  <!-- Group containing the paper stack -->
+  <g transform="translate(116, 116)" filter="url(#glow)">
+    <!-- Back sheet of paper (slanted slightly) -->
+    <rect x="20" y="40" width="220" height="280" rx="16" fill="#f8fafc" opacity="0.3" transform="rotate(-8 130 180)" stroke="#94a3b8" stroke-width="8" />
+    
+    <!-- Middle sheet of paper (slanted opposite way) -->
+    <rect x="30" y="30" width="220" height="280" rx="16" fill="#f8fafc" opacity="0.6" transform="rotate(4 140 170)" stroke="#cbd5e1" stroke-width="8" />
+
+    <!-- Front main sheet of paper (aligned) -->
+    <rect x="40" y="20" width="220" height="280" rx="16" fill="#ffffff" stroke="#d97706" stroke-width="8" />
+    
+    <!-- Lined details on the front paper (representing writing / pages) -->
+    <!-- First line: shorter, header-like -->
+    <line x1="80" y1="80" x2="220" y2="80" stroke="#f59e0b" stroke-width="12" stroke-linecap="round" />
+    
+    <!-- Second line: text line -->
+    <line x1="80" y1="130" x2="220" y2="130" stroke="#cbd5e1" stroke-width="8" stroke-linecap="round" />
+    
+    <!-- Third line: text line -->
+    <line x1="80" y1="180" x2="220" y2="180" stroke="#cbd5e1" stroke-width="8" stroke-linecap="round" />
+
+    <!-- Fourth line: text line -->
+    <line x1="80" y1="230" x2="220" y2="230" stroke="#cbd5e1" stroke-width="8" stroke-linecap="round" />
+    
+    <!-- Small elegant bookmark stamp at the top-right corner of front page -->
+    <path d="M 200,20 L 230,20 L 230,80 L 215,65 L 200,80 Z" fill="#d97706" />
+  </g>
+</svg>
