@@ -14,7 +14,7 @@ export default function AnnouncementBanner() {
             <Lock className="w-3 h-3" /> Under Seal
           </span>
           <span className="text-center md:text-left font-serif italic text-amber-950 font-semibold tracking-wide">
-            A new department of the Ministry is currently being forged. Scribes are whispering of a paper tier so refined, ink behaves differently. Something extraordinary is being pressed...
+            A new department of the Ministry is currently being forged. Scribes are whispering of a paper tier so refined, ink behaves differently. Something is being pressed.
           </span>
         </div>
         <button
