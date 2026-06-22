@@ -31,7 +31,7 @@ export default function Navigation({ searchQuery, onSearchChange, activeTab, onT
             <a href="#" onClick={(e) => handleTabClick(e, 'main')} className="flex-shrink-0 text-white font-serif text-2xl font-bold tracking-tight">
               Ministry of Pages
             </a>
-            <nav className="hidden lg:ml-10 lg:flex lg:space-x-8">
+            <nav className="hidden lg:ml-6 lg:flex lg:space-x-4 xl:ml-10 xl:space-x-8">
               <a href="#" onClick={(e) => handleTabClick(e, 'main')} className={`${activeTab === 'main' ? 'text-amber-500' : 'text-slate-300 hover:text-white'} px-3 py-2 text-sm font-medium transition-colors`}>Main</a>
               <a href="#" onClick={(e) => handleTabClick(e, 'products')} className={`${activeTab === 'products' ? 'text-amber-500' : 'text-slate-300 hover:text-white'} px-3 py-2 text-sm font-medium transition-colors`}>Products</a>
               <a href="#" onClick={(e) => handleTabClick(e, 'history')} className={`${activeTab === 'history' ? 'text-amber-500' : 'text-slate-300 hover:text-white'} px-3 py-2 text-sm font-medium transition-colors`}>History</a>
@@ -40,8 +40,8 @@ export default function Navigation({ searchQuery, onSearchChange, activeTab, onT
             </nav>
           </div>
           
-          <div className="flex items-center space-x-6">
-            <div className="hidden lg:flex relative">
+          <div className="flex items-center space-x-4 xl:space-x-6">
+            <div className="hidden lg:flex relative w-40 xl:w-60">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                 <Search className="h-4 w-4 text-slate-400" />
               </div>
@@ -54,7 +54,7 @@ export default function Navigation({ searchQuery, onSearchChange, activeTab, onT
               />
             </div>
             
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-4 xl:space-x-6">
               <button
                 onClick={() => onOpenAuth('signin')}
                 className="hidden lg:block text-sm font-medium text-slate-300 hover:text-white transition-colors"
