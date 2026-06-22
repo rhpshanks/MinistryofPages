@@ -33,7 +33,7 @@ export default function Contact() {
             <div>
               <h3 className="text-base font-semibold leading-7 text-slate-900">Email Support</h3>
               <p className="mt-2 leading-7 text-slate-600">We aim to respond within 24 hours.</p>
-              <p className="mt-4 text-sm font-semibold text-slate-900">contact@ministryofpages.com</p>
+              <p className="mt-4 text-sm font-semibold text-slate-900">contactministryofpages@gmail.com</p>
             </div>
           </div>
         </div>
