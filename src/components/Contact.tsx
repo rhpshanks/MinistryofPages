@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Wallet } from 'lucide-react';
 
 export default function Contact() {
   return (
@@ -34,6 +34,17 @@ export default function Contact() {
               <h3 className="text-base font-semibold leading-7 text-slate-900">Email Support</h3>
               <p className="mt-2 leading-7 text-slate-600">We aim to respond within 24 hours.</p>
               <p className="mt-4 text-sm font-semibold text-slate-900">contactministryofpages@gmail.com</p>
+            </div>
+          </div>
+
+          <div className="flex gap-x-6 bg-emerald-50 p-6 rounded-md ring-1 ring-emerald-100">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-emerald-600 shadow-sm">
+              <Wallet className="h-5 w-5 text-white" aria-hidden="true" />
+            </div>
+            <div>
+              <h3 className="text-base font-semibold leading-7 text-slate-900">EasyPaisa Payment</h3>
+              <p className="mt-2 leading-7 text-slate-600">Send payment via EasyPaisa for quick order processing.</p>
+              <p className="mt-4 text-sm font-semibold text-slate-900">+92 300 9100171</p>
             </div>
           </div>
         </div>

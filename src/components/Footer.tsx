@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, CreditCard } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import Logo from './Logo';
 
 export default function Footer() {
@@ -102,9 +102,13 @@ export default function Footer() {
           <p className="text-xs leading-5 text-slate-500">
             &copy; {new Date().getFullYear()} Ministry of Pages. All rights reserved.
           </p>
-          <div className="mt-4 md:mt-0 flex items-center space-x-4 text-slate-400">
-             <CreditCard className="h-6 w-6" />
-             {/* Add actual supported payment method icons here */}
+          <div className="mt-4 md:mt-0 flex items-center space-x-3">
+             <div className="flex items-center space-x-2 bg-slate-50 rounded-md px-3 py-1.5 ring-1 ring-slate-200">
+               <div className="flex items-center justify-center h-6 w-6 rounded-full bg-emerald-600">
+                 <span className="text-white text-xs font-bold">ep</span>
+               </div>
+               <span className="text-xs font-medium text-slate-600">EasyPaisa: +92 300 9100171</span>
+             </div>
           </div>
         </div>
       </div>

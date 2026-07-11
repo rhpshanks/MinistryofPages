@@ -19,6 +19,8 @@ import About from './components/About';
 import Contact from './components/Contact';
 import AuthModal from './components/AuthModal';
 import AnnouncementBanner from './components/AnnouncementBanner';
+import HowToOrder from './components/HowToOrder';
+import WhatsAppButton from './components/WhatsAppButton';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { ToastProvider } from './context/ToastContext';
@@ -170,6 +172,7 @@ export default function App() {
                     onToggleFilter={handleToggleFilter}
                     onClearFilters={handleClearFilters}
                   />
+                  <HowToOrder />
                   <QualityPromise />
                 </>
               )}
@@ -185,6 +188,7 @@ export default function App() {
                     onToggleFilter={handleToggleFilter}
                     onClearFilters={handleClearFilters}
                   />
+                  <HowToOrder />
                   <QualityPromise />
                 </>
               )}
@@ -195,6 +199,7 @@ export default function App() {
             </main>
             
             <Footer />
+            <WhatsAppButton />
           </div>
           <Analytics />
         </CartProvider>
