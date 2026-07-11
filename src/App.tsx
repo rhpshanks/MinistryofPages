@@ -24,7 +24,6 @@ import { WishlistProvider } from './context/WishlistContext';
 import { ToastProvider } from './context/ToastContext';
 import { MOCK_PRODUCTS } from './data';
 import { Analytics } from '@vercel/analytics/react';
-
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('main');
@@ -32,22 +31,92 @@ export default function App() {
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
   const [isLoading, setIsLoading] = useState(false);
 
+  const [activeFilters, setActiveFilters] = useState<{
+    types: string[];
+    weights: number[];
+    finishes: string[];
+    colors: string[];
+    packSizes: string[];
+  }>({
+    types: [],
+    weights: [],
+    finishes: [],
+    colors: [],
+    packSizes: [],
+  });
+
+  const handleToggleFilter = (key: string, value: any) => {
+    setActiveFilters((prev) => {
+      const current = prev[key as keyof typeof prev] as any[];
+      const next = current.includes(value)
+        ? current.filter((v) => v !== value)
+        : [...current, value];
+      return { ...prev, [key]: next };
+    });
+  };
+
+  const handleClearFilters = () => {
+    setActiveFilters({
+      types: [],
+      weights: [],
+      finishes: [],
+      colors: [],
+      packSizes: [],
+    });
+  };
+
   // Simulate loading on search/filter changes
   useEffect(() => {
     setIsLoading(true);
     const timer = setTimeout(() => setIsLoading(false), 500);
     return () => clearTimeout(timer);
-  }, [searchQuery]);
+  }, [searchQuery, activeFilters]);
 
   const filteredProducts = useMemo(() => {
     let products = MOCK_PRODUCTS;
-    if (!searchQuery.trim()) return products;
-    const query = searchQuery.toLowerCase();
-    return products.filter((product) => 
-      product.name.toLowerCase().includes(query) ||
-      product.category.toLowerCase().includes(query)
-    );
-  }, [searchQuery]);
+
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      products = products.filter((product) => 
+        product.name.toLowerCase().includes(query) ||
+        product.category.toLowerCase().includes(query)
+      );
+    }
+
+    if (activeFilters.types.length > 0) {
+      products = products.filter((product) =>
+        activeFilters.types.includes(product.category)
+      );
+    }
+
+    if (activeFilters.weights.length > 0) {
+      products = products.filter((product) =>
+        activeFilters.weights.includes(product.gsm)
+      );
+    }
+
+    if (activeFilters.finishes.length > 0) {
+      products = products.filter((product) =>
+        activeFilters.finishes.includes(product.finish)
+      );
+    }
+
+    if (activeFilters.colors.length > 0) {
+      products = products.filter((product) =>
+        activeFilters.colors.includes(product.color)
+      );
+    }
+
+    if (activeFilters.packSizes.length > 0) {
+      products = products.filter((product) =>
+        activeFilters.packSizes.some((size) =>
+          product.packSize.toLowerCase().includes(size.toLowerCase())
+        )
+      );
+    }
+
+    return products;
+  }, [searchQuery, activeFilters]);
 
 
   const handleOpenAuth = (mode: 'signin' | 'signup') => {
@@ -97,6 +166,9 @@ export default function App() {
                     isLoading={isLoading} 
                     filteredProducts={filteredProducts} 
                     searchQuery={searchQuery} 
+                    activeFilters={activeFilters}
+                    onToggleFilter={handleToggleFilter}
+                    onClearFilters={handleClearFilters}
                   />
                   <QualityPromise />
                 </>
@@ -109,6 +181,9 @@ export default function App() {
                     isLoading={isLoading} 
                     filteredProducts={filteredProducts} 
                     searchQuery={searchQuery} 
+                    activeFilters={activeFilters}
+                    onToggleFilter={handleToggleFilter}
+                    onClearFilters={handleClearFilters}
                   />
                   <QualityPromise />
                 </>
@@ -128,11 +203,29 @@ export default function App() {
   );
 }
 
-function ProductsSection({ isLoading, filteredProducts, searchQuery }: { isLoading: boolean, filteredProducts: typeof MOCK_PRODUCTS, searchQuery: string }) {
+function ProductsSection({ 
+  isLoading, 
+  filteredProducts, 
+  searchQuery,
+  activeFilters,
+  onToggleFilter,
+  onClearFilters
+}: { 
+  isLoading: boolean, 
+  filteredProducts: typeof MOCK_PRODUCTS, 
+  searchQuery: string,
+  activeFilters: any,
+  onToggleFilter: any,
+  onClearFilters: any
+}) {
   return (
     <section id="products" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-        <FilterSidebar />
+        <FilterSidebar 
+          activeFilters={activeFilters}
+          onToggleFilter={onToggleFilter}
+          onClearFilters={onClearFilters}
+        />
         
         <div className="flex-1">
           <div className="mb-6 flex items-center justify-between">

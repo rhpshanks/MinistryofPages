@@ -29,7 +29,7 @@ export default function Navigation({ searchQuery, onSearchChange, activeTab, onT
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <a href="#" onClick={(e) => handleTabClick(e, 'main')} className="flex-shrink-0 text-white font-serif text-2xl font-bold tracking-tight">
-              Ministry of Pages
+              mp
             </a>
             <nav className="hidden lg:ml-6 lg:flex lg:space-x-4 xl:ml-10 xl:space-x-8">
               <a href="#" onClick={(e) => handleTabClick(e, 'main')} className={`${activeTab === 'main' ? 'text-amber-500' : 'text-slate-300 hover:text-white'} px-3 py-2 text-sm font-medium transition-colors`}>Main</a>

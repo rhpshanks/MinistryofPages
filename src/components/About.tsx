@@ -7,7 +7,7 @@ export default function About() {
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base font-semibold leading-7 text-amber-600 uppercase tracking-widest">Our Story</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">
-            Ministry of Pages
+            mp
           </p>
           <p className="mt-6 text-lg leading-8 text-slate-600">
             Founded in 2024, Ministry of Pages was born from a simple belief: in an increasingly digital world, the tactile experience of premium paper remains essential. We are a boutique paper merchant dedicated to sourcing and supplying the finest paper products to professionals, artists, and enthusiasts who care deeply about the details.
