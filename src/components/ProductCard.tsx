@@ -55,6 +55,11 @@ export default function ProductCard({ product }: ProductCardProps) {
           
           {/* Badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-2">
+            {product.badge && (
+              <span className="inline-flex items-center rounded-sm bg-emerald-600 px-2 py-1 text-xs font-semibold text-white shadow-sm">
+                {product.badge}
+              </span>
+            )}
             {product.tier === 'Premium' && (
               <span className="inline-flex items-center rounded-sm bg-slate-900 px-2 py-1 text-xs font-medium text-white ring-1 ring-inset ring-slate-900/10 shadow-sm">
                 Premium
@@ -156,6 +161,11 @@ export default function ProductCard({ product }: ProductCardProps) {
             {/* Details Section */}
             <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col overflow-y-auto">
               <div className="mb-4 flex flex-wrap gap-2">
+                {product.badge && (
+                  <span className="inline-flex items-center rounded-sm bg-emerald-600 px-2 py-1 text-xs font-semibold text-white shadow-sm">
+                    {product.badge}
+                  </span>
+                )}
                 {product.tier === 'Premium' && (
                   <span className="inline-flex items-center rounded-sm bg-slate-900 px-2 py-1 text-xs font-medium text-white">
                     Premium

@@ -17,6 +17,7 @@ export interface Product {
   rating: number;
   reviews: number;
   inStock: boolean;
+  badge?: string;
 }
 
 export const CATEGORIES = [
@@ -44,12 +45,13 @@ export const MOCK_PRODUCTS: Product[] = [
     finish: 'Uncoated',
     color: 'White',
     packSize: 'Ream - 500 sheets',
-    price: 1400,
+    price: 1195,
     tier: 'Standard',
     imageUrl: '/products/double-a-80gsm.png',
     rating: 0,
     reviews: 0,
     inStock: true,
+    badge: 'Brilliant Low Price',
   },
   {
     id: 'mp-2',
