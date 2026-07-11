@@ -139,7 +139,7 @@ export const MOCK_PRODUCTS: Product[] = [
     gsm: 80,
     finish: 'Uncoated',
     color: 'White',
-    packSize: 'Single Ream (500 sheets)',
+    packSize: 'Ream - 500 Sheets',
     price: 1400,
     tier: 'Standard',
     imageUrl: '/products/double-a-80gsm.png',
