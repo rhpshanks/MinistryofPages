@@ -2,7 +2,7 @@
 
 export default function WhatsAppButton() {
   const whatsappUrl = `https://wa.me/923195015013?text=${encodeURIComponent(
-    "Assalam o Alaikum! I have a question about Ministry of Pages products."
+    "Hi! I have a question about Ministry of Pages"
   )}`;
 
   return (

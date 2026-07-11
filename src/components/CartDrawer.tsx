@@ -109,11 +109,11 @@ export default function CartDrawer() {
             </p>
             <a
               href={`https://wa.me/923195015013?text=${encodeURIComponent(
-                `Assalam o Alaikum! I'd like to place an order:\n\n` +
+                `Hi! I'd like to place an order:\n\n` +
                 items.map((item, i) => 
                   `${i + 1}. ${item.product.name}\n   SKU: ${item.product.sku}\n   Qty: ${item.quantity} × PKR ${item.product.price.toLocaleString()} = PKR ${(item.product.price * item.quantity).toLocaleString()}`
                 ).join('\n\n') +
-                `\n\n📦 Total: PKR ${cartTotal.toLocaleString()}\n\nPlease confirm availability and delivery charges. JazakAllah!`
+                `\n\n📦 Total: PKR ${cartTotal.toLocaleString()}\n\nPlease confirm availability and delivery charges.`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
