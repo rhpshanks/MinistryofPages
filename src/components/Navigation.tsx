@@ -33,8 +33,7 @@ export default function Navigation({ searchQuery, onSearchChange, activeTab, onT
             </a>
             <nav className="hidden lg:ml-6 lg:flex lg:space-x-4 xl:ml-10 xl:space-x-8">
               <a href="#" onClick={(e) => handleTabClick(e, 'main')} className={`${activeTab === 'main' ? 'text-amber-500' : 'text-slate-300 hover:text-white'} px-3 py-2 text-sm font-medium transition-colors`}>Main</a>
-              <a href="#" onClick={(e) => handleTabClick(e, 'a4')} className={`${activeTab === 'a4' ? 'text-amber-500' : 'text-slate-300 hover:text-white'} px-3 py-2 text-sm font-medium transition-colors`}>A4 Papers</a>
-              <a href="#" onClick={(e) => handleTabClick(e, 'products')} className={`${activeTab === 'products' ? 'text-amber-500' : 'text-slate-300 hover:text-white'} px-3 py-2 text-sm font-medium transition-colors`}>All Products</a>
+              <a href="#" onClick={(e) => handleTabClick(e, 'products')} className={`${activeTab === 'products' ? 'text-amber-500' : 'text-slate-300 hover:text-white'} px-3 py-2 text-sm font-medium transition-colors`}>Products</a>
               <a href="#" onClick={(e) => handleTabClick(e, 'about')} className={`${activeTab === 'about' ? 'text-amber-500' : 'text-slate-300 hover:text-white'} px-3 py-2 text-sm font-medium transition-colors`}>About</a>
               <a href="#" onClick={(e) => handleTabClick(e, 'contact')} className={`${activeTab === 'contact' ? 'text-amber-500' : 'text-slate-300 hover:text-white'} px-3 py-2 text-sm font-medium transition-colors`}>Contact</a>
             </nav>
@@ -121,8 +120,7 @@ export default function Navigation({ searchQuery, onSearchChange, activeTab, onT
               />
             </div>
             <a href="#" onClick={(e) => handleTabClick(e, 'main')} className={`block rounded-md px-3 py-2 text-base font-medium ${activeTab === 'main' ? 'bg-slate-800 text-amber-500' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}>Main</a>
-            <a href="#" onClick={(e) => handleTabClick(e, 'a4')} className={`block rounded-md px-3 py-2 text-base font-medium ${activeTab === 'a4' ? 'bg-slate-800 text-amber-500' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}>A4 Papers</a>
-            <a href="#" onClick={(e) => handleTabClick(e, 'products')} className={`block rounded-md px-3 py-2 text-base font-medium ${activeTab === 'products' ? 'bg-slate-800 text-amber-500' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}>All Products</a>
+            <a href="#" onClick={(e) => handleTabClick(e, 'products')} className={`block rounded-md px-3 py-2 text-base font-medium ${activeTab === 'products' ? 'bg-slate-800 text-amber-500' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}>Products</a>
             <a href="#" onClick={(e) => handleTabClick(e, 'about')} className={`block rounded-md px-3 py-2 text-base font-medium ${activeTab === 'about' ? 'bg-slate-800 text-amber-500' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}>About</a>
             <a href="#" onClick={(e) => handleTabClick(e, 'contact')} className={`block rounded-md px-3 py-2 text-base font-medium ${activeTab === 'contact' ? 'bg-slate-800 text-amber-500' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}>Contact</a>
             

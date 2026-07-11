@@ -49,15 +49,6 @@ export default function App() {
     );
   }, [searchQuery]);
 
-  const a4Products = useMemo(() => {
-    const base = MOCK_PRODUCTS.filter((p) => p.category === 'A4');
-    if (!searchQuery.trim()) return base;
-    const query = searchQuery.toLowerCase();
-    return base.filter((p) =>
-      p.name.toLowerCase().includes(query) ||
-      p.category.toLowerCase().includes(query)
-    );
-  }, [searchQuery]);
 
   const handleOpenAuth = (mode: 'signin' | 'signup') => {
     setAuthMode(mode);
@@ -117,21 +108,7 @@ export default function App() {
                   <ProductsSection 
                     isLoading={isLoading} 
                     filteredProducts={filteredProducts} 
-                    searchQuery={searchQuery}
-                    title="All Products"
-                  />
-                  <QualityPromise />
-                </>
-              )}
-
-              {activeTab === 'a4' && (
-                <>
-                  <Breadcrumbs />
-                  <ProductsSection 
-                    isLoading={isLoading} 
-                    filteredProducts={a4Products} 
-                    searchQuery={searchQuery}
-                    title="A4 Papers"
+                    searchQuery={searchQuery} 
                   />
                   <QualityPromise />
                 </>
@@ -151,7 +128,7 @@ export default function App() {
   );
 }
 
-function ProductsSection({ isLoading, filteredProducts, searchQuery, title = 'All Products' }: { isLoading: boolean, filteredProducts: typeof MOCK_PRODUCTS, searchQuery: string, title?: string }) {
+function ProductsSection({ isLoading, filteredProducts, searchQuery }: { isLoading: boolean, filteredProducts: typeof MOCK_PRODUCTS, searchQuery: string }) {
   return (
     <section id="products" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
@@ -159,7 +136,7 @@ function ProductsSection({ isLoading, filteredProducts, searchQuery, title = 'Al
         
         <div className="flex-1">
           <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-2xl font-serif font-bold text-slate-900">{title}</h2>
+            <h2 className="text-2xl font-serif font-bold text-slate-900">All Products</h2>
             <div className="flex items-center space-x-2 text-sm text-slate-500">
               <span>Sort by:</span>
               <select className="border-none bg-transparent py-1 pl-1 pr-6 text-slate-900 focus:ring-0 font-medium cursor-pointer">
