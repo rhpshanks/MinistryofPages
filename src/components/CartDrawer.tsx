@@ -57,7 +57,7 @@ export default function CartDrawer() {
                         {item.product.name}
                       </h3>
                       <p className="text-sm font-medium text-slate-900 ml-4">
-                        ${(item.product.price * item.quantity).toFixed(2)}
+                        PKR {(item.product.price * item.quantity).toLocaleString()}
                       </p>
                     </div>
                     
@@ -102,7 +102,7 @@ export default function CartDrawer() {
           <div className="border-t border-slate-200 p-6 bg-slate-50">
             <div className="flex justify-between items-center mb-4">
               <span className="text-sm text-slate-600 font-medium">Subtotal</span>
-              <span className="text-lg font-bold text-slate-900">${cartTotal.toFixed(2)}</span>
+              <span className="text-lg font-bold text-slate-900">PKR {cartTotal.toLocaleString()}</span>
             </div>
             <p className="text-xs text-slate-500 mb-6">
               Shipping and taxes calculated at checkout.

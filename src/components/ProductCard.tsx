@@ -114,7 +114,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
           
           <div className="mt-6 flex items-center justify-between mt-auto">
-            <p className="text-lg font-medium text-slate-900">${product.price.toFixed(2)}</p>
+            <p className="text-lg font-medium text-slate-900">PKR {product.price.toLocaleString()}</p>
             <button 
               disabled={!product.inStock}
               onClick={handleAddToCart}
@@ -192,7 +192,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 <span className="ml-1 text-sm text-slate-500">({product.reviews} reviews)</span>
               </div>
 
-              <p className="mt-4 text-3xl font-medium text-slate-900">${product.price.toFixed(2)}</p>
+              <p className="mt-4 text-3xl font-medium text-slate-900">PKR {product.price.toLocaleString()}</p>
 
               <div className="mt-6 pt-6 border-t border-slate-200">
                 <ul className="space-y-3">

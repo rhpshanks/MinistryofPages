@@ -55,7 +55,7 @@ export default function History() {
                     </div>
                     <div>
                       <p className="text-slate-500 font-medium">Total Amount</p>
-                      <p className="text-slate-900 mt-1">${order.total.toFixed(2)}</p>
+                      <p className="text-slate-900 mt-1">PKR {order.total.toLocaleString()}</p>
                     </div>
                   </div>
                   
@@ -83,7 +83,7 @@ export default function History() {
                         <div className="flex flex-1 flex-col justify-center">
                           <div className="flex justify-between">
                             <h4 className="text-base font-medium text-slate-900 font-serif">{item.product.name}</h4>
-                            <p className="ml-4 text-sm font-medium text-slate-900">${(item.product.price * item.quantity).toFixed(2)}</p>
+                            <p className="ml-4 text-sm font-medium text-slate-900">PKR {(item.product.price * item.quantity).toLocaleString()}</p>
                           </div>
                           <p className="mt-1 text-sm text-slate-500">SKU: {item.product.sku}</p>
                           <div className="mt-2 flex items-center justify-between">
