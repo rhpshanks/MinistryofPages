@@ -21,6 +21,8 @@ import AuthModal from './components/AuthModal';
 import AnnouncementBanner from './components/AnnouncementBanner';
 import HowToOrder from './components/HowToOrder';
 import WhatsAppButton from './components/WhatsAppButton';
+import ProfileView from './components/ProfileView';
+import SettingsView from './components/SettingsView';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { ToastProvider } from './context/ToastContext';
@@ -198,6 +200,10 @@ export default function App() {
               {activeTab === 'about' && <About />}
               
               {activeTab === 'contact' && <Contact />}
+
+              {activeTab === 'profile' && <ProfileView />}
+
+              {activeTab === 'settings' && <SettingsView />}
             </main>
             
             <Footer />
