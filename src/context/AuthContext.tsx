@@ -38,7 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signUp = async (email: string, password: string, fullName: string) => {
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -48,15 +48,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     if (error) return { error: error.message };
 
-    // Insert profile into profiles table
-    const { data: { user: newUser } } = await supabase.auth.getUser();
-    if (newUser) {
-      await supabase.from('profiles').upsert({
-        id: newUser.id,
+    // Insert profile into profiles table using data.user from signup response
+    if (data?.user) {
+      const { error: profileError } = await supabase.from('profiles').upsert({
+        id: data.user.id,
         full_name: fullName,
         email: email,
         updated_at: new Date().toISOString(),
       });
+      if (profileError) {
+        console.error('Error creating profile:', profileError);
+      }
     }
 
     return { error: null };
