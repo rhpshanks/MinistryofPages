@@ -1,5 +1,6 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
 import Logo from './Logo';
+import EasyPaisaLogo from './EasyPaisaLogo';
 
 export default function Footer() {
   return (
@@ -103,11 +104,9 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Ministry of Pages. All rights reserved.
           </p>
           <div className="mt-4 md:mt-0 flex items-center space-x-3">
-             <div className="flex items-center space-x-2 bg-slate-50 rounded-md px-3 py-1.5 ring-1 ring-slate-200">
-               <div className="flex items-center justify-center h-6 w-6 rounded-full bg-emerald-600">
-                 <span className="text-white text-xs font-bold">ep</span>
-               </div>
-               <span className="text-xs font-medium text-slate-600">EasyPaisa: +92 300 9100171</span>
+             <div className="flex items-center space-x-2 bg-slate-900 text-white rounded-md pl-2 pr-3 py-1 ring-1 ring-slate-800">
+               <EasyPaisaLogo size={20} showText={false} className="shrink-0" />
+               <span className="text-xs font-semibold">EasyPaisa: +92 300 9100171</span>
              </div>
           </div>
         </div>
