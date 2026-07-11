@@ -134,7 +134,7 @@ export const MOCK_PRODUCTS: Product[] = [
   {
     id: 'mop-1',
     sku: 'MOP-A4-80U-WHT-DBLA',
-    name: 'Double A A4 Copy Paper — 500 Sheet Ream',
+    name: 'Double A A4 Copy Paper — Ream, 500 Sheets',
     category: 'A4',
     gsm: 80,
     finish: 'Uncoated',
