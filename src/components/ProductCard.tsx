@@ -3,7 +3,7 @@ import { Product } from '../data';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { useToast } from '../context/ToastContext';
-import { Star, Eye, ShoppingCart, X, Check, Heart } from 'lucide-react';
+import { Eye, ShoppingCart, X, Check, Heart } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -107,11 +107,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           
           <p className="mt-1 text-xs text-slate-500">{product.packSize}</p>
           
-          <div className="mt-3 flex items-center">
-            <Star className="h-4 w-4 text-amber-500 fill-amber-500" />
-            <span className="ml-1 text-xs font-medium text-slate-700">{product.rating}</span>
-            <span className="ml-1 text-xs text-slate-400">({product.reviews})</span>
-          </div>
+
           
           <div className="mt-6 flex items-center justify-between mt-auto">
             <p className="text-lg font-medium text-slate-900">PKR {product.price.toLocaleString()}</p>
@@ -185,12 +181,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   <Heart className={`w-5 h-5 ${inWishlist ? 'fill-current' : ''}`} />
                 </button>
               </div>
-              
-              <div className="mt-4 flex items-center">
-                <Star className="h-4 w-4 text-amber-500 fill-amber-500" />
-                <span className="ml-1 text-sm font-medium text-slate-700">{product.rating}</span>
-                <span className="ml-1 text-sm text-slate-500">({product.reviews} reviews)</span>
-              </div>
+
 
               <p className="mt-4 text-3xl font-medium text-slate-900">PKR {product.price.toLocaleString()}</p>
 
