@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Search, ShoppingCart, Menu, Heart, X } from 'lucide-react';
+import { Search, ShoppingCart, Menu, Heart, X, LogOut } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { useAuth } from '../context/AuthContext';
 import Logo from './Logo';
 
 interface NavigationProps {
@@ -15,6 +16,7 @@ interface NavigationProps {
 export default function Navigation({ searchQuery, onSearchChange, activeTab, onTabChange, onOpenAuth }: NavigationProps) {
   const { cartCount, setIsCartOpen } = useCart();
   const { wishlistCount } = useWishlist();
+  const { user, signOut } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleTabClick = (e: React.MouseEvent<HTMLAnchorElement>, tab: string) => {
@@ -55,18 +57,35 @@ export default function Navigation({ searchQuery, onSearchChange, activeTab, onT
             </div>
             
             <div className="flex items-center space-x-4 xl:space-x-6">
-              <button
-                onClick={() => onOpenAuth('signin')}
-                className="hidden lg:block text-sm font-medium text-slate-300 hover:text-white transition-colors"
-              >
-                Sign In
-              </button>
-              <button
-                onClick={() => onOpenAuth('signup')}
-                className="hidden lg:block rounded-sm bg-amber-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-amber-500 transition-colors"
-              >
-                Sign Up
-              </button>
+              {user ? (
+                <>
+                  <span className="hidden lg:block text-sm font-medium text-slate-300">
+                    {user.user_metadata?.full_name || user.email}
+                  </span>
+                  <button
+                    onClick={() => signOut()}
+                    className="hidden lg:flex items-center gap-1.5 rounded-sm bg-slate-800 px-3 py-1.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition-colors"
+                  >
+                    <LogOut className="h-3.5 w-3.5" />
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => onOpenAuth('signin')}
+                    className="hidden lg:block text-sm font-medium text-slate-300 hover:text-white transition-colors"
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    onClick={() => onOpenAuth('signup')}
+                    className="hidden lg:block rounded-sm bg-amber-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-amber-500 transition-colors"
+                  >
+                    Sign Up
+                  </button>
+                </>
+              )}
               
               <div className="h-6 w-px bg-slate-700 hidden lg:block" aria-hidden="true" />
               
@@ -126,18 +145,35 @@ export default function Navigation({ searchQuery, onSearchChange, activeTab, onT
             <a href="#" onClick={(e) => handleTabClick(e, 'contact')} className={`block rounded-md px-3 py-2 text-base font-medium ${activeTab === 'contact' ? 'bg-slate-800 text-amber-500' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}>Contact</a>
             
             <div className="mt-4 pt-4 border-t border-slate-800 flex flex-col space-y-2">
-              <button
-                onClick={() => { onOpenAuth('signin'); setIsMobileMenuOpen(false); }}
-                className="block rounded-md px-3 py-2 text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-white text-left"
-              >
-                Sign In
-              </button>
-              <button
-                onClick={() => { onOpenAuth('signup'); setIsMobileMenuOpen(false); }}
-                className="block rounded-md px-3 py-2 text-base font-medium text-amber-500 hover:bg-slate-800 text-left"
-              >
-                Sign Up
-              </button>
+              {user ? (
+                <>
+                  <span className="block px-3 py-2 text-sm font-medium text-slate-400">
+                    Signed in as {user.user_metadata?.full_name || user.email}
+                  </span>
+                  <button
+                    onClick={() => { signOut(); setIsMobileMenuOpen(false); }}
+                    className="flex items-center gap-2 rounded-md px-3 py-2 text-base font-medium text-red-400 hover:bg-slate-800 text-left"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => { onOpenAuth('signin'); setIsMobileMenuOpen(false); }}
+                    className="block rounded-md px-3 py-2 text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-white text-left"
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    onClick={() => { onOpenAuth('signup'); setIsMobileMenuOpen(false); }}
+                    className="block rounded-md px-3 py-2 text-base font-medium text-amber-500 hover:bg-slate-800 text-left"
+                  >
+                    Sign Up
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>

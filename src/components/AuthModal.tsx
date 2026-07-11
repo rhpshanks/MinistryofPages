@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { X, Mail, Lock, User } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { X, Mail, Lock, User, Loader2, CheckCircle } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -9,8 +10,67 @@ interface AuthModalProps {
 
 export default function AuthModal({ isOpen, onClose, defaultMode = 'signin' }: AuthModalProps) {
   const [mode, setMode] = useState<'signin' | 'signup'>(defaultMode);
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  const { signUp, signIn } = useAuth();
+
+  // Reset form when modal opens or mode changes
+  useEffect(() => {
+    if (isOpen) {
+      setMode(defaultMode);
+      setError(null);
+      setSuccess(null);
+    }
+  }, [isOpen, defaultMode]);
+
+  useEffect(() => {
+    setError(null);
+    setSuccess(null);
+  }, [mode]);
 
   if (!isOpen) return null;
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setSuccess(null);
+    setLoading(true);
+
+    try {
+      if (mode === 'signup') {
+        if (!fullName.trim()) {
+          setError('Please enter your full name.');
+          setLoading(false);
+          return;
+        }
+        const { error } = await signUp(email, password, fullName.trim());
+        if (error) {
+          setError(error);
+        } else {
+          setSuccess('Account created! Please check your email to verify.');
+          setFullName('');
+          setEmail('');
+          setPassword('');
+        }
+      } else {
+        const { error } = await signIn(email, password);
+        if (error) {
+          setError(error);
+        } else {
+          onClose();
+        }
+      }
+    } catch {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -42,7 +102,20 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'signin' }: A
           </p>
         </div>
 
-        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+        {error && (
+          <div className="mb-4 rounded-sm bg-red-50 border border-red-200 p-3">
+            <p className="text-sm text-red-700">{error}</p>
+          </div>
+        )}
+
+        {success && (
+          <div className="mb-4 rounded-sm bg-emerald-50 border border-emerald-200 p-3 flex items-start gap-2">
+            <CheckCircle className="h-4 w-4 text-emerald-600 mt-0.5 shrink-0" />
+            <p className="text-sm text-emerald-700">{success}</p>
+          </div>
+        )}
+
+        <form className="space-y-4" onSubmit={handleSubmit}>
           {mode === 'signup' && (
             <div>
               <label className="block text-sm font-medium text-slate-700">Full Name</label>
@@ -52,8 +125,12 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'signin' }: A
                 </div>
                 <input
                   type="text"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                   className="block w-full rounded-sm border-slate-300 pl-10 focus:border-amber-500 focus:ring-amber-500 sm:text-sm"
-                  placeholder="John Doe"
+                  placeholder="Your full name"
+                  required
+                  disabled={loading}
                 />
               </div>
             </div>
@@ -67,8 +144,12 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'signin' }: A
               </div>
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="block w-full rounded-sm border-slate-300 pl-10 focus:border-amber-500 focus:ring-amber-500 sm:text-sm"
                 placeholder="you@example.com"
+                required
+                disabled={loading}
               />
             </div>
           </div>
@@ -81,39 +162,24 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'signin' }: A
               </div>
               <input
                 type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="block w-full rounded-sm border-slate-300 pl-10 focus:border-amber-500 focus:ring-amber-500 sm:text-sm"
                 placeholder="••••••••"
+                required
+                minLength={6}
+                disabled={loading}
               />
             </div>
           </div>
 
-          {mode === 'signin' && (
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-slate-300 text-amber-600 focus:ring-amber-500"
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-slate-700">
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a href="#" className="font-medium text-amber-600 hover:text-amber-500 transition-colors">
-                  Forgot password?
-                </a>
-              </div>
-            </div>
-          )}
-
           <div className="pt-2">
             <button
               type="submit"
-              className="flex w-full justify-center rounded-sm bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
+              disabled={loading}
+              className="flex w-full justify-center items-center gap-2 rounded-sm bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 disabled:opacity-60 disabled:cursor-not-allowed"
             >
+              {loading && <Loader2 className="h-4 w-4 animate-spin" />}
               {mode === 'signin' ? 'Sign In' : 'Create Account'}
             </button>
           </div>

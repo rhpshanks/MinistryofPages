@@ -24,6 +24,7 @@ import WhatsAppButton from './components/WhatsAppButton';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { ToastProvider } from './context/ToastContext';
+import { AuthProvider } from './context/AuthContext';
 import { MOCK_PRODUCTS } from './data';
 import { Analytics } from '@vercel/analytics/react';
 export default function App() {
@@ -138,6 +139,7 @@ export default function App() {
   };
 
   return (
+    <AuthProvider>
     <ToastProvider>
       <WishlistProvider>
         <CartProvider>
@@ -205,6 +207,7 @@ export default function App() {
         </CartProvider>
       </WishlistProvider>
     </ToastProvider>
+    </AuthProvider>
   );
 }
 
