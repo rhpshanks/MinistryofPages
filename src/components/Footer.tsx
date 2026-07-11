@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin, CreditCard } from 'lucide-react';
+import Logo from './Logo';
 
 export default function Footer() {
   return (
@@ -9,7 +10,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 pb-8 pt-16 sm:px-6 lg:px-8 lg:pt-24">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8 xl:col-span-1">
-            <span className="text-2xl font-serif font-bold tracking-tight text-slate-900">mp</span>
+            <Logo size={44} variant="dark" />
             <p className="text-sm leading-6 text-slate-600 max-w-xs">
               Providing premium paper products, expertly sourced and carefully delivered to professionals who care about the details.
             </p>
@@ -99,7 +100,7 @@ export default function Footer() {
         </div>
         <div className="mt-16 border-t border-slate-200 pt-8 sm:mt-20 lg:mt-24 flex flex-col md:flex-row justify-between items-center">
           <p className="text-xs leading-5 text-slate-500">
-            &copy; {new Date().getFullYear()} mp. All rights reserved.
+            &copy; {new Date().getFullYear()} Ministry of Pages. All rights reserved.
           </p>
           <div className="mt-4 md:mt-0 flex items-center space-x-4 text-slate-400">
              <CreditCard className="h-6 w-6" />

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Search, ShoppingCart, Menu, Heart, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import Logo from './Logo';
 
 interface NavigationProps {
   searchQuery: string;
@@ -28,8 +29,8 @@ export default function Navigation({ searchQuery, onSearchChange, activeTab, onT
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
-            <a href="#" onClick={(e) => handleTabClick(e, 'main')} className="flex-shrink-0 text-white font-serif text-2xl font-bold tracking-tight">
-              mp
+            <a href="#" onClick={(e) => handleTabClick(e, 'main')} className="flex-shrink-0">
+              <Logo size={40} variant="light" />
             </a>
             <nav className="hidden lg:ml-6 lg:flex lg:space-x-4 xl:ml-10 xl:space-x-8">
               <a href="#" onClick={(e) => handleTabClick(e, 'main')} className={`${activeTab === 'main' ? 'text-amber-500' : 'text-slate-300 hover:text-white'} px-3 py-2 text-sm font-medium transition-colors`}>Main</a>
