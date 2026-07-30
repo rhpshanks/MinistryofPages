@@ -6,12 +6,6 @@ import { Bell, Globe, Shield, Save, Loader2, Phone, MapPin, Clock, Building2, Us
 const CITIES = [
   'Islamabad',
   'Rawalpindi',
-  'Lahore',
-  'Karachi',
-  'Peshawar',
-  'Faisalabad',
-  'Multan',
-  'Other',
 ];
 
 const DELIVERY_TIMES = [

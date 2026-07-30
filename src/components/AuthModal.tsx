@@ -6,12 +6,6 @@ import { motion, AnimatePresence } from 'motion/react';
 const CITIES = [
   'Islamabad',
   'Rawalpindi',
-  'Lahore',
-  'Karachi',
-  'Peshawar',
-  'Faisalabad',
-  'Multan',
-  'Other',
 ];
 
 const DELIVERY_TIMES = [
@@ -76,11 +70,10 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'signin' }: A
         if (error) {
           setError(error);
         } else {
-          setSuccess('Account created! Now let\'s set up your delivery preferences.');
-          setTimeout(() => {
-            setStep(2);
-            setSuccess(null);
-          }, 1200);
+          setSuccess('Account created! Please check your email to verify, then sign in.');
+          setFullName('');
+          setEmail('');
+          setPassword('');
         }
       } else {
         const { error } = await signIn(email, password);
@@ -149,7 +142,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'signin' }: A
         </div>
 
         {/* Step Indicator — only visible during sign-up flow or onboarding */}
-        {(mode === 'signup' || isOnboardingMode) && (
+        {isOnboardingMode && (
           <div className="px-6 pt-6 sm:px-8 sm:pt-8">
             <div className="flex items-center justify-center gap-3">
               <div className="flex items-center gap-2">
