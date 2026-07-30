@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import Categories from './components/Categories';
@@ -26,15 +26,25 @@ import SettingsView from './components/SettingsView';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { ToastProvider } from './context/ToastContext';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { MOCK_PRODUCTS } from './data';
 import { Analytics } from '@vercel/analytics/react';
 export default function App() {
+  return (
+    <AuthProvider>
+      <AppInner />
+    </AuthProvider>
+  );
+}
+
+function AppInner() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('main');
   const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
+  const [authMode, setAuthMode] = useState<'signin' | 'signup' | 'onboarding'>('signin');
   const [isLoading, setIsLoading] = useState(false);
+  const { user, profileComplete, loading: authLoading } = useAuth();
+  const hasShownOnboarding = useRef(false);
 
   const [activeFilters, setActiveFilters] = useState<{
     types: string[];
@@ -124,10 +134,23 @@ export default function App() {
   }, [searchQuery, activeFilters]);
 
 
-  const handleOpenAuth = (mode: 'signin' | 'signup') => {
+  const handleOpenAuth = (mode: 'signin' | 'signup' | 'onboarding') => {
     setAuthMode(mode);
     setIsAuthOpen(true);
   };
+
+  // Auto-show onboarding for signed-in users with incomplete profiles
+  useEffect(() => {
+    if (!authLoading && user && !profileComplete && !hasShownOnboarding.current) {
+      hasShownOnboarding.current = true;
+      // Small delay so the sign-in modal closes first
+      const timer = setTimeout(() => {
+        setAuthMode('onboarding');
+        setIsAuthOpen(true);
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+  }, [authLoading, user, profileComplete]);
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
@@ -141,7 +164,6 @@ export default function App() {
   };
 
   return (
-    <AuthProvider>
     <ToastProvider>
       <WishlistProvider>
         <CartProvider>
@@ -201,7 +223,7 @@ export default function App() {
               
               {activeTab === 'contact' && <Contact />}
 
-              {activeTab === 'profile' && <ProfileView />}
+              {activeTab === 'profile' && <ProfileView onNavigateToSettings={() => handleTabChange('settings')} />}
 
               {activeTab === 'settings' && <SettingsView />}
             </main>
@@ -213,7 +235,6 @@ export default function App() {
         </CartProvider>
       </WishlistProvider>
     </ToastProvider>
-    </AuthProvider>
   );
 }
 

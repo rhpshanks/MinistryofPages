@@ -1,8 +1,14 @@
 import { useAuth } from '../context/AuthContext';
-import { User, Mail, Calendar, Key, ShieldCheck } from 'lucide-react';
+import { User, Mail, Calendar, Phone, MapPin, Clock, Building2, ShieldCheck, Pencil } from 'lucide-react';
 
-export default function ProfileView() {
-  const { user } = useAuth();
+const DELIVERY_TIME_LABELS: Record<string, { label: string; time: string; icon: string }> = {
+  morning: { label: 'Morning', time: '9 AM – 12 PM', icon: '🌅' },
+  afternoon: { label: 'Afternoon', time: '12 PM – 5 PM', icon: '☀️' },
+  evening: { label: 'Evening', time: '5 PM – 9 PM', icon: '🌆' },
+};
+
+export default function ProfileView({ onNavigateToSettings }: { onNavigateToSettings?: () => void }) {
+  const { user, profile } = useAuth();
 
   if (!user) {
     return (
@@ -12,8 +18,8 @@ export default function ProfileView() {
     );
   }
 
-  const fullName = user.user_metadata?.full_name || 'Ministry of Pages User';
-  const email = user.email || '';
+  const fullName = profile?.full_name || user.user_metadata?.full_name || 'Ministry of Pages User';
+  const email = profile?.email || user.email || '';
   const initial = fullName.charAt(0).toUpperCase();
 
   // Deterministic background color for avatar
@@ -38,6 +44,12 @@ export default function ProfileView() {
       })
     : 'Recently';
 
+  const deliveryTimeInfo = profile?.preferred_delivery_time 
+    ? DELIVERY_TIME_LABELS[profile.preferred_delivery_time] 
+    : null;
+
+  const hasDeliveryInfo = profile?.phone || profile?.city || profile?.delivery_address;
+
   return (
     <div className="bg-slate-50 py-16 sm:py-24">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,6 +65,19 @@ export default function ProfileView() {
               </div>
             </div>
 
+            {/* Edit button */}
+            {onNavigateToSettings && (
+              <div className="absolute top-4 right-6 sm:right-8">
+                <button
+                  onClick={onNavigateToSettings}
+                  className="flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-amber-600 transition-colors bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-200 rounded-sm px-3 py-1.5"
+                >
+                  <Pencil className="w-3.5 h-3.5" />
+                  Edit Profile
+                </button>
+              </div>
+            )}
+
             {/* Profile Info Details */}
             <div className="pt-16 sm:pt-14">
               <h1 className="text-2xl font-serif font-bold text-slate-900">{fullName}</h1>
@@ -61,17 +86,8 @@ export default function ProfileView() {
               </p>
             </div>
 
+            {/* Core Info Grid */}
             <div className="mt-8 border-t border-slate-100 pt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex items-start gap-4">
-                <div className="p-2 bg-slate-100 rounded-sm">
-                  <User className="w-5 h-5 text-slate-600" />
-                </div>
-                <div>
-                  <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Account ID</h3>
-                  <p className="text-sm text-slate-900 mt-1 font-mono break-all">{user.id}</p>
-                </div>
-              </div>
-
               <div className="flex items-start gap-4">
                 <div className="p-2 bg-slate-100 rounded-sm">
                   <Mail className="w-5 h-5 text-slate-600" />
@@ -84,6 +100,30 @@ export default function ProfileView() {
 
               <div className="flex items-start gap-4">
                 <div className="p-2 bg-slate-100 rounded-sm">
+                  <Phone className="w-5 h-5 text-slate-600" />
+                </div>
+                <div>
+                  <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Phone</h3>
+                  <p className="text-sm text-slate-900 mt-1">
+                    {profile?.phone || <span className="text-slate-400 italic">Not set</span>}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="p-2 bg-slate-100 rounded-sm">
+                  <Building2 className="w-5 h-5 text-slate-600" />
+                </div>
+                <div>
+                  <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">City</h3>
+                  <p className="text-sm text-slate-900 mt-1">
+                    {profile?.city || <span className="text-slate-400 italic">Not set</span>}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="p-2 bg-slate-100 rounded-sm">
                   <Calendar className="w-5 h-5 text-slate-600" />
                 </div>
                 <div>
@@ -91,16 +131,62 @@ export default function ProfileView() {
                   <p className="text-sm text-slate-900 mt-1">{createdAtDate}</p>
                 </div>
               </div>
+            </div>
 
-              <div className="flex items-start gap-4">
-                <div className="p-2 bg-slate-100 rounded-sm">
-                  <Key className="w-5 h-5 text-slate-600" />
+            {/* Delivery Info Section */}
+            <div className="mt-8 border-t border-slate-100 pt-8">
+              <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-5 flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-amber-600" />
+                Delivery Preferences
+              </h2>
+              
+              {hasDeliveryInfo ? (
+                <div className="space-y-5">
+                  {/* Delivery Address */}
+                  <div className="flex items-start gap-4">
+                    <div className="p-2 bg-amber-50 rounded-sm">
+                      <MapPin className="w-5 h-5 text-amber-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Delivery Address</h3>
+                      <p className="text-sm text-slate-900 mt-1 leading-relaxed">
+                        {profile?.delivery_address || <span className="text-slate-400 italic">Not set</span>}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Preferred Time */}
+                  <div className="flex items-start gap-4">
+                    <div className="p-2 bg-amber-50 rounded-sm">
+                      <Clock className="w-5 h-5 text-amber-600" />
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Preferred Delivery Time</h3>
+                      {deliveryTimeInfo ? (
+                        <p className="text-sm text-slate-900 mt-1 flex items-center gap-1.5">
+                          <span>{deliveryTimeInfo.icon}</span>
+                          {deliveryTimeInfo.label} ({deliveryTimeInfo.time})
+                        </p>
+                      ) : (
+                        <p className="text-sm text-slate-400 mt-1 italic">Not set</p>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Authentication</h3>
-                  <p className="text-sm text-slate-900 mt-1">Supabase Secure Auth</p>
+              ) : (
+                <div className="bg-slate-50 border border-dashed border-slate-200 rounded-sm p-6 text-center">
+                  <MapPin className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+                  <p className="text-sm text-slate-500 mb-3">No delivery preferences set yet.</p>
+                  {onNavigateToSettings && (
+                    <button
+                      onClick={onNavigateToSettings}
+                      className="text-sm font-medium text-amber-600 hover:text-amber-500 transition-colors"
+                    >
+                      Set up delivery preferences →
+                    </button>
+                  )}
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

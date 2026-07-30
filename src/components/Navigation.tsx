@@ -10,7 +10,7 @@ interface NavigationProps {
   onSearchChange: (query: string) => void;
   activeTab: string;
   onTabChange: (tab: string) => void;
-  onOpenAuth: (type: 'signin' | 'signup') => void;
+  onOpenAuth: (type: 'signin' | 'signup' | 'onboarding') => void;
 }
 
 export default function Navigation({ searchQuery, onSearchChange, activeTab, onTabChange, onOpenAuth }: NavigationProps) {
