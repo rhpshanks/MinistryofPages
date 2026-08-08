@@ -2,26 +2,32 @@
 
 A standalone single-page site built from the brandbook. Static: one HTML file plus images, no build step and no dependencies.
 
-This folder is independent of the React storefront in the repository root. Nothing here is part of the Vite build, and Vercel does not serve it, so the two can sit side by side without interfering.
+It lives at **https://www.ministryofpages.com/new/**, published alongside the React storefront rather than replacing it. Both stay reachable, so the shop keeps its sign in, cart, wishlist, and EasyPaisa checkout while this design can be reviewed on the real domain.
 
 ```
-landing/
+public/new/
   index.html          the whole site (styles + scripts inline)
   assets/             product photos, app icon
   README.md
 ```
 
+## How it reaches the domain
+
+Vite copies everything in `public/` verbatim into `dist/`, so `public/new/` lands at `dist/new/` and Vercel serves it at `/new/`. The SPA rewrite in `vercel.json` sends unmatched paths to the React app, but a real file always wins first, which is what keeps this page reachable.
+
+Every path inside `index.html` is relative, so the folder can be renamed or moved without editing links. Only the two `og:` meta tags carry absolute URLs.
+
 ## Run it locally
 
 ```bash
-python -m http.server 5183 -d landing
+python -m http.server 5183 -d public/new
 ```
 
 Then open http://localhost:5183
 
-## Publish it
+## Making it the homepage instead
 
-Any static host works. Drag the `ministryofpages` folder onto Netlify Drop, or push it to a GitHub repo and enable Pages, or upload the contents to `public_html` on shared hosting. Point the ministryofpages.com DNS at whichever you pick.
+Deploying this in place of the storefront takes one change: replace the repository's root `index.html` with this file, move `assets/` to `public/assets/`, and remove the `/src/main.tsx` script tag reference. Be deliberate about it, because the React app provides sign in, cart, wishlist, and EasyPaisa checkout that this page does not, so promoting it retires those features from the live site.
 
 ## Things you will want to change
 
